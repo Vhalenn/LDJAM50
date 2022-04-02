@@ -56,24 +56,24 @@
     <Compile Include="Assets\Scripts\TowerManager.cs" />
     <Compile Include="Assets\Scripts\UI_Canvas.cs" />
     <Compile Include="Assets\Scripts\Anim\Rotation.cs" />
+    <Compile Include="Assets\Scripts\UI_year_objectif.cs" />
+    <Compile Include="Assets\Scripts\MoneyManager.cs" />
+    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
+    <Compile Include="Assets\Scripts\Cam.cs" />
+    <Compile Include="Assets\Scripts\UI_yearProgress.cs" />
+    <Compile Include="Assets\Scripts\UI_Workers.cs" />
+    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
+    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\Floor.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Constant.cs" />
-    <Compile Include="Assets\Scripts\UI_yearProgress.cs" />
-    <Compile Include="Assets\Scripts\MoneyManager.cs" />
-    <Compile Include="Assets\Scripts\UI_year_objectif.cs" />
-    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
-    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
-    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
-    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
-    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
-    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
-    <Compile Include="Assets\Scripts\Cam.cs" />
-    <Compile Include="Assets\Scripts\UI_Workers.cs" />
+    <Compile Include="Assets\Scripts\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
+    <Compile Include="Assets\Scripts\AngerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

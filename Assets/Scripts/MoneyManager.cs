@@ -26,11 +26,6 @@ public class MoneyManager : MonoBehaviour
         UpgateUI();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void MonthEnd()
     {
         int employeeCount = tower.employeeCount;
@@ -59,17 +54,26 @@ public class MoneyManager : MonoBehaviour
         if (yearObjectif)
         {
             yearObjectif.SetGoal(moneyGoal);
+            yearObjectif.SetBank(moneyBank);
             yearObjectif.SetSlider(goalProgress, moneyEarned);
         }
     }
 
     public bool NewFloorBuilt()
     {
-        if(moneyBank > floorCost) moneyBank -= floorCost;
-        else if( moneyEarned > floorCost) moneyEarned -= floorCost;
+        if (moneyBank >= floorCost)
+        {
+            moneyBank -= floorCost;
+        }
+        else if (moneyEarned >= floorCost)
+        {
+            moneyEarned -= (floorCost - moneyBank);
+            moneyBank = 0;
+        }
         else return false;
 
         floorCost *= 1.1f;
+        UpgateUI();
         return true;
     }
 }

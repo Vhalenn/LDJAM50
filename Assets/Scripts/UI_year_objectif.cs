@@ -9,6 +9,7 @@ public class UI_year_objectif : MonoBehaviour
     [SerializeField] TextMeshProUGUI moneyGoal;
     [SerializeField] TextMeshProUGUI moneyEarned;
     [SerializeField] TextMeshProUGUI bonusText;
+    [SerializeField] TextMeshProUGUI bankText;
     [SerializeField] float progress = 0;
 
     void Start()
@@ -40,29 +41,18 @@ public class UI_year_objectif : MonoBehaviour
         moneyGoal.text = txt + " $";
     }
 
+    public void SetBank(float bank)
+    {
+        bankText.text = "Bank\n" + ConvertBigNumberText(bank) + " $";
+    }
+
     string ConvertBigNumberText(float n)
     {
-        //string txt = string.Format("{0:0}", n);
-
-        /*
-        List<char> num = new List<char>();
-        int index = 0;
-
-        for (int i = txt.Length - 1; i >= 0; i--)
-        {
-            num.Add(txt[i]);
-            index++;
-            if (index % 3 == 0 
-                && index < txt.Length) num.Add('.');
-        }
-
-        num.Reverse();
-        */
-
         string txt = string.Empty;
         if (n >= 1000000000) txt = (n / 1000000000).ToString("F1") + "b";
         else if (n >= 1000000) txt = (n / 1000000).ToString("F1") + "m";
         else if (n >= 1000) txt = (n / 1000).ToString("F1") + "k";
+        else txt = n.ToString("F0");
 
         return txt;
     }
