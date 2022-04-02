@@ -7,11 +7,9 @@ Builds/
 Library/
 Logs/
 *.log
-MemoryCaptures/
 obj/
 Temp/
 Export/
 
-Assets/Scenes/Trailer
 *.rar
 !*.blend

@@ -6,8 +6,9 @@ public class MoneyManager : MonoBehaviour
     UI_year_objectif yearObjectif;
 
     [SerializeField] TowerManager tower;
-    [SerializeField] float moneyEarned;
-    [SerializeField] float moneyGoal = 5000000;
+    public float moneyBank;
+    public float moneyEarned;
+    public float moneyGoal = 5000000;
     [SerializeField][Range(0,1)] float goalProgress;
 
     [Header("Employees Stats")]
@@ -19,7 +20,10 @@ public class MoneyManager : MonoBehaviour
 
     void Start()
     {
+        moneyBank = moneyGoal * 0.1f;
         if (uiCanvas) yearObjectif = uiCanvas.uiObjectif;
+
+        UpgateUI();
     }
 
     void Update()
@@ -35,21 +39,37 @@ public class MoneyManager : MonoBehaviour
 
         goalProgress = moneyEarned / moneyGoal;
 
-        if (yearObjectif) yearObjectif.SetSlider(goalProgress);
+        if (yearObjectif) yearObjectif.SetSlider(goalProgress, moneyEarned);
     }
 
     public void DecadeEnd()
     {
+        moneyBank = moneyEarned * 0.2f;
+        float moneyToShareHolders = moneyEarned * 0.8f;
+        Debug.Log("Gaved " + string.Format("{0:0}",moneyToShareHolders) + " $ to the sshareholders");
         moneyEarned = 0;
         //moneyEarned -= moneyGoal;
         moneyGoal *= 1.5f;
 
-        if (yearObjectif) yearObjectif.SetSlider(goalProgress);
+        UpgateUI();
     }
 
-    public void NewFloorBuilt()
+    void UpgateUI()
     {
-        moneyEarned -= floorCost;
+        if (yearObjectif)
+        {
+            yearObjectif.SetGoal(moneyGoal);
+            yearObjectif.SetSlider(goalProgress, moneyEarned);
+        }
+    }
+
+    public bool NewFloorBuilt()
+    {
+        if(moneyBank > floorCost) moneyBank -= floorCost;
+        else if( moneyEarned > floorCost) moneyEarned -= floorCost;
+        else return false;
+
         floorCost *= 1.1f;
+        return true;
     }
 }

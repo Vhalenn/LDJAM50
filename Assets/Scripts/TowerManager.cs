@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class TowerManager : MonoBehaviour
 {
@@ -19,28 +20,41 @@ public class TowerManager : MonoBehaviour
     [SerializeField] Transform _cameraTarget;
 
     [Header("Storage")]
+    [SerializeField] UI_Canvas uiCanvas;
+    UI_Workers uiWorkers;
     [SerializeField] Floor[] floorArray;
 
     void Start()
     {
+        if (uiCanvas) uiWorkers = uiCanvas.uiWorkers;
+
         ActualizeFloorCount();
         SetCameraHeight(floorsCount - 1);
     }
 
     public void BuildNewFloor()
     {
+
+        bool validation = moneyManager.NewFloorBuilt();
+        if(!validation) // NOT ENOUGH MONEY
+        {
+            return;
+        }
+
         Floor newFloor = Instantiate(floorPrefab, floorParent);
 
         int floor = newFloor.transform.GetSiblingIndex();
         float height = floorHeight * floor;
         newFloor.transform.position = new Vector3(0, height, 0);
+        newFloor.transform.rotation = Quaternion.Euler(0, Mathf.RoundToInt(Random.value * 4) * 90, 0);
+        newFloor.transform.localScale = Vector3.one * 0.01f;
+        newFloor.transform.DOScale(Vector3.one, 0.3f);
 
         SetCameraHeight(floor);
 
-        roofParent.transform.localPosition = new Vector3(0, height, 0); 
+        roofParent.DOLocalMoveY(height, 0.3f);
         ActualizeFloorCount();
 
-        moneyManager.NewFloorBuilt();
     }
 
     void ActualizeFloorCount()
@@ -59,6 +73,8 @@ public class TowerManager : MonoBehaviour
             if (!floorArray[i]) continue;
             employeeCount += floorArray[i].numberOfEmployees;
         }
+
+        if (uiWorkers) uiWorkers.SetEmployeeCount(employeeCount);
     }
 
     void SetCameraHeight(int floor)
