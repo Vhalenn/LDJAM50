@@ -23,4 +23,9 @@ public class UI_Workers : MonoBehaviour
         string word = count > 0 ? "employees" : "employee";
         numOfEmployees.text = count.ToString() + "\n" + word;
     }
+
+    public void SetSlider(float progress)
+    {
+        slider.value = progress;
+    }
 }

@@ -5,7 +5,9 @@ public class TowerManager : MonoBehaviour
 {
     public float floorHeight = 5;
     public int floorsCount = 0;
+    public int workersCount = 0;
     public int employeeCount = 0;
+    public int floorDensity = 90;
 
     [Header("Prefabs")]
     [SerializeField] Floor floorPrefab;
@@ -17,7 +19,7 @@ public class TowerManager : MonoBehaviour
     [SerializeField] Transform roofParent;
 
     [Header("Camera")]
-    [SerializeField] Transform _cameraTarget;
+    [SerializeField] Cam _cam;
 
     [Header("Storage")]
     [SerializeField] UI_Canvas uiCanvas;
@@ -57,6 +59,12 @@ public class TowerManager : MonoBehaviour
 
     }
 
+    public void UpdateStats()
+    {
+        employeeCount = floorDensity * floorsCount;
+        if (uiWorkers) uiWorkers.SetEmployeeCount(employeeCount);
+    }
+
     void ActualizeFloorCount()
     {
         floorsCount = floorParent.childCount;
@@ -70,20 +78,19 @@ public class TowerManager : MonoBehaviour
             if (!tr) continue;
             floorArray[i] = tr.GetComponent<Floor>();
 
+            /*
             if (!floorArray[i]) continue;
             employeeCount += floorArray[i].numberOfEmployees;
+            */
         }
 
-        if (uiWorkers) uiWorkers.SetEmployeeCount(employeeCount);
+        UpdateStats();
     }
 
     void SetCameraHeight(int floor)
     {
-        if (!_cameraTarget) return;
-        
-        Vector3 pos = _cameraTarget.transform.position;
-        pos.y = floorHeight * floor;
-        _cameraTarget.transform.position = pos;
-        
+        if (!_cam) return;
+
+        _cam.SetCameraHeight(floorHeight * floor, false);
     }
 }

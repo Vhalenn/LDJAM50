@@ -3,6 +3,7 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
     [SerializeField] UI_Canvas uiCanvas;
+    [SerializeField] UI_Recap uiRecap;
     UI_year_objectif yearObjectif;
 
     [SerializeField] TowerManager tower;
@@ -18,6 +19,11 @@ public class MoneyManager : MonoBehaviour
     [Header("Tower Stats")]
     public float floorCost = 100000;
 
+    // Storage
+    float totalSalaries;
+    float totalProduced;
+    float monthGain;
+
     void Start()
     {
         moneyBank = moneyGoal * 0.1f;
@@ -29,22 +35,34 @@ public class MoneyManager : MonoBehaviour
     public void MonthEnd()
     {
         int employeeCount = tower.employeeCount;
-        moneyEarned += employeeCount * moneyProduced; // Earned money
-        moneyEarned -= employeeCount * salariy; // Salairies
+        totalSalaries = employeeCount * salariy; // Pay of the workers
+        totalProduced = employeeCount * moneyProduced; // Money earned by the company
+        monthGain = totalProduced - totalSalaries;
+
+        moneyEarned += monthGain;
 
         goalProgress = moneyEarned / moneyGoal;
 
-        if (yearObjectif) yearObjectif.SetSlider(goalProgress, moneyEarned);
+        UpgateUI();
+    }
+
+    public void YearEnd(int year)
+    {
+        //Debug.Log("End of the year " + year);
+        moneyProduced *= Constant.inflation;
     }
 
     public void DecadeEnd()
     {
-        moneyBank = moneyEarned * 0.2f;
-        float moneyToShareHolders = moneyEarned * 0.8f;
-        Debug.Log("Gaved " + string.Format("{0:0}",moneyToShareHolders) + " $ to the sshareholders");
+        float shareHolders = Constant.partToTheShareHolders;
+        moneyBank = moneyEarned * (1.0f - shareHolders);
+        float moneyToShareHolders = moneyEarned * shareHolders;
+
+        string toTheShareholders = Constant.DisplayBigNumber(moneyToShareHolders);
+        Debug.Log("Gaved " + toTheShareholders + " $ to the shareholders");
         moneyEarned = 0;
-        //moneyEarned -= moneyGoal;
-        moneyGoal *= 1.5f;
+
+        moneyGoal *= Constant.moneyGoalMultiplier;
 
         UpgateUI();
     }
@@ -56,6 +74,11 @@ public class MoneyManager : MonoBehaviour
             yearObjectif.SetGoal(moneyGoal);
             yearObjectif.SetBank(moneyBank);
             yearObjectif.SetSlider(goalProgress, moneyEarned);
+        }
+
+        if(uiRecap)
+        {
+            uiRecap.UpdateSalariesGain(totalSalaries, monthGain);
         }
     }
 
@@ -72,7 +95,7 @@ public class MoneyManager : MonoBehaviour
         }
         else return false;
 
-        floorCost *= 1.1f;
+        floorCost *= Constant.newFloorCost;
         UpgateUI();
         return true;
     }

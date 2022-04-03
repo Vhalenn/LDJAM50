@@ -21,7 +21,7 @@ public class UI_year_objectif : MonoBehaviour
     {
         progress = value;
         slider.value = value;
-        if(moneyEarned) moneyEarned.text = ConvertBigNumberText(money) + " $";
+        if(moneyEarned) moneyEarned.text = Constant.DisplayBigNumber(money) + " $";
 
         if (value <= 1)
         {
@@ -37,23 +37,12 @@ public class UI_year_objectif : MonoBehaviour
 
     public void SetGoal(float goal)
     {
-        string txt = ConvertBigNumberText(goal);
+        string txt = Constant.DisplayBigNumber(goal);
         moneyGoal.text = txt + " $";
     }
 
     public void SetBank(float bank)
     {
-        bankText.text = "Bank\n" + ConvertBigNumberText(bank) + " $";
-    }
-
-    string ConvertBigNumberText(float n)
-    {
-        string txt = string.Empty;
-        if (n >= 1000000000) txt = (n / 1000000000).ToString("F1") + "b";
-        else if (n >= 1000000) txt = (n / 1000000).ToString("F1") + "m";
-        else if (n >= 1000) txt = (n / 1000).ToString("F1") + "k";
-        else txt = n.ToString("F0");
-
-        return txt;
+        bankText.text = "Bank\n" + Constant.DisplayBigNumber(bank) + " $";
     }
 }

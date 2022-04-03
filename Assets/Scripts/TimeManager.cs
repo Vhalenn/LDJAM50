@@ -46,7 +46,12 @@ public class TimeManager : MonoBehaviour
             oldM = m;
         }
 
-        oldY = y;
+        if (y != oldY)
+        {
+            moneyManager.YearEnd(oldY);
+            oldY = y;
+        }
+
 
         if(decade != oldDecade)
         {
