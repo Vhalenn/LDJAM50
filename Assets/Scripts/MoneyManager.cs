@@ -59,7 +59,12 @@ public class MoneyManager : MonoBehaviour
         float moneyToShareHolders = moneyEarned * shareHolders;
 
         string toTheShareholders = Constant.DisplayBigNumber(moneyToShareHolders);
-        Debug.Log("Gaved " + toTheShareholders + " $ to the shareholders");
+        string message = "Terry, we are very proud of you !\n " +
+            "Our shareholders earned " + toTheShareholders + " $ !\n\n " +
+            "Continue like this !";
+        //Debug.Log("Gaved " + toTheShareholders + " $ to the shareholders");
+
+        UI_Bubble.ShowText(message);
         moneyEarned = 0;
 
         moneyGoal *= Constant.moneyGoalMultiplier;

@@ -17,9 +17,14 @@ public class TowerManager : MonoBehaviour
     [SerializeField] MoneyManager moneyManager;
     [SerializeField] Transform floorParent;
     [SerializeField] Transform roofParent;
+    [SerializeField] GameObject towerTop;
 
     [Header("Camera")]
     [SerializeField] Cam _cam;
+
+    [Header("Audio")]
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip clip;
 
     [Header("Storage")]
     [SerializeField] UI_Canvas uiCanvas;
@@ -40,9 +45,12 @@ public class TowerManager : MonoBehaviour
         bool validation = moneyManager.NewFloorBuilt();
         if(!validation) // NOT ENOUGH MONEY
         {
+            UI_Bubble.ShowText("The company don't have enought money to do that Terry !");
             return;
         }
 
+        source.pitch = Random.Range(-0.2f, 0.2f);
+        source.PlayOneShot(clip);
         Floor newFloor = Instantiate(floorPrefab, floorParent);
 
         int floor = newFloor.transform.GetSiblingIndex();
@@ -69,6 +77,8 @@ public class TowerManager : MonoBehaviour
     {
         floorsCount = floorParent.childCount;
         employeeCount = 0;
+
+        towerTop.SetActive(floorsCount > 12);
 
         floorArray = new Floor[floorsCount];
         for (int i = 0; i < floorsCount; i++)

@@ -15,7 +15,7 @@ public class UI_Recap : MonoBehaviour
     public void UpdateSalariesGain(float salaries, float gain)
     {
         this.salaries.text = "Salaries : " + Constant.DisplayBigNumber(salaries) + " $";
-        this.gain.text = "Total earned\n" + Constant.DisplayBigNumber(gain) + " $";
+        this.gain.text = "Monthly gain\n" + Constant.DisplayBigNumber(gain) + " $";
         if (gain > 0) this.gain.color = good;
         else this.gain.color = bad;
     }
