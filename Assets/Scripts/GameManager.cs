@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Canvas gameCanvas;
     [SerializeField] Canvas menuCanvas;
     [SerializeField] UI_Help uiHelp;
+
+    [Header("Game Over")]
+    [SerializeField] GameObject gameOverWindow;
+    [SerializeField] GameObject warningWindow;
 
     void Start()
     {
@@ -33,6 +38,12 @@ public class GameManager : MonoBehaviour
     public void SetMenuState(bool state)
     {
         menuCanvas.enabled = state;
+        if(!state)
+        {
+            gameOverWindow.SetActive(false);
+            warningWindow.SetActive(false);
+        }
+
         gameCanvas.enabled = !state;
 
         Time.timeScale = state ? 0 : 1;
@@ -44,12 +55,25 @@ public class GameManager : MonoBehaviour
         uiHelp.SetState(true);
     }
 
+    public void GameOver()
+    {
+        gameOverWindow.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void Warning()
+    {
+        warningWindow.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
     public void QuitGame()
     {
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #elif UNITY_WEBPLAYER
-            Application.OpenURL(webplayerQuitURL);
+            //Application.OpenURL(webplayerQuitURL);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         #else
             Application.Quit();
         #endif

@@ -15,7 +15,7 @@ public class TimeManager : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] int startYear;
-    [SerializeField] float timeSpeed;
+    public float timeSpeed;
 
     void Start()
     {

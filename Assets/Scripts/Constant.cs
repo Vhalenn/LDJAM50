@@ -6,7 +6,7 @@ static public class Constant
     public static float floorHeight = 5;
 
     // FINANCIAL CONSTANT
-    public static float newFloorCost = 1.5f;
+    public static float newFloorCost = 1.35f;
     public static float moneyGoalMultiplier = 3f;
     public static float inflation = 1.03f;
 

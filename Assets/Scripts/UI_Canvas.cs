@@ -17,4 +17,12 @@ public class UI_Canvas : MonoBehaviour
     {
         towerManager.BuildNewFloor();
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F10))
+        {
+            canvas.enabled = !canvas.enabled;
+        }
+    }
 }

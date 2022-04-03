@@ -49,7 +49,7 @@ public class TowerManager : MonoBehaviour
             return;
         }
 
-        source.pitch = Random.Range(-0.2f, 0.2f);
+        source.pitch = Random.Range(0.5f, 1.5f);
         source.PlayOneShot(clip);
         Floor newFloor = Instantiate(floorPrefab, floorParent);
 

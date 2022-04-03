@@ -4,6 +4,8 @@ public class MoneyManager : MonoBehaviour
 {
     [SerializeField] UI_Canvas uiCanvas;
     [SerializeField] UI_Recap uiRecap;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] AngerManager angerManager;
     UI_year_objectif yearObjectif;
 
     [SerializeField] TowerManager tower;
@@ -11,6 +13,7 @@ public class MoneyManager : MonoBehaviour
     public float moneyEarned;
     public float moneyGoal = 5000000;
     [SerializeField][Range(0,1)] float goalProgress;
+    public int failedGoals;
 
     [Header("Employees Stats")]
     public float moneyProduced = 2200;
@@ -43,12 +46,15 @@ public class MoneyManager : MonoBehaviour
 
         goalProgress = moneyEarned / moneyGoal;
 
+
         UpgateUI();
     }
 
     public void YearEnd(int year)
     {
         //Debug.Log("End of the year " + year);
+        angerManager.Relax();
+
         moneyProduced *= Constant.inflation;
     }
 
@@ -57,12 +63,29 @@ public class MoneyManager : MonoBehaviour
         float shareHolders = Constant.partToTheShareHolders;
         moneyBank = moneyEarned * (1.0f - shareHolders);
         float moneyToShareHolders = moneyEarned * shareHolders;
-
         string toTheShareholders = Constant.DisplayBigNumber(moneyToShareHolders);
-        string message = "Terry, we are very proud of you !\n " +
-            "Our shareholders earned " + toTheShareholders + " $ !\n\n " +
-            "Continue like this !";
-        //Debug.Log("Gaved " + toTheShareholders + " $ to the shareholders");
+
+        bool sucess = goalProgress >= 0.999f;
+        string message = string.Empty;
+
+
+        if (sucess)
+        {
+            message = "Terry, we are very proud of you !\n " +
+                "Our shareholders earned " + toTheShareholders + " $ !\n\n " +
+                "Continue like this !";
+        }
+        else
+        {
+            /*
+            message = "Terry, we are note proud of you ! You failed reaching your financial goal ! \n" +
+                "Don't do that again or it may be the last one !";
+            */
+            failedGoals++;
+
+            if (failedGoals == 1) gameManager.Warning();
+            else if (failedGoals > 3) gameManager.GameOver(); 
+        }
 
         UI_Bubble.ShowText(message);
         moneyEarned = 0;

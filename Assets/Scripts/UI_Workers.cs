@@ -8,16 +8,6 @@ public class UI_Workers : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] TextMeshProUGUI numOfEmployees;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void SetEmployeeCount(int count)
     {
         string word = count > 0 ? "employees" : "employee";

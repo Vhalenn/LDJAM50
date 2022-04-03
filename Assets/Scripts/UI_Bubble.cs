@@ -8,6 +8,12 @@ public class UI_Bubble : MonoBehaviour
     [SerializeField] GameObject parent;
     [SerializeField] TextMeshProUGUI txt;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip clip;
+
+    Tween rot;
+
     string lastWord;
     float time;
 
@@ -39,14 +45,17 @@ public class UI_Bubble : MonoBehaviour
 
     void WriteText(string toWrite)
     {
-        if (toWrite == lastWord) return;
+        if (toWrite == lastWord || string.IsNullOrEmpty(toWrite) ) return;
 
         parent.SetActive(true);
         Transform tr = transform;
         tr.localScale = Vector3.one * 0.001f;
         tr.DOScale(Vector3.one, 0.15f);
         tr.localRotation = Quaternion.Euler(0, 0, -5);
-        tr.DOPunchRotation(Vector3.forward * 50, 0.2f);
+        rot.Kill();
+        rot = tr.DOPunchRotation(Vector3.forward * 50, 0.2f);
+
+        source.PlayOneShot(clip);
 
         txt.text = toWrite;
         lastWord = toWrite;
