@@ -7,7 +7,7 @@ static public class Constant
 
     // FINANCIAL CONSTANT
     public static float newFloorCost = 1.35f;
-    public static float moneyGoalMultiplier = 3f;
+    public static float moneyGoalMultiplier = 2.5f;
     public static float inflation = 1.03f;
 
     public static float partToTheShareHolders = 0.8f;

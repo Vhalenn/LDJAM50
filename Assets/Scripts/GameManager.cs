@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -72,8 +71,7 @@ public class GameManager : MonoBehaviour
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #elif UNITY_WEBPLAYER
-            //Application.OpenURL(webplayerQuitURL);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Application.OpenURL(webplayerQuitURL);
         #else
             Application.Quit();
         #endif

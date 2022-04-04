@@ -3118,7 +3118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -357, y: -23}
+  m_AnchoredPosition: {x: -307.46, y: -23}
   m_SizeDelta: {x: 407.08167, y: 258.832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &281602936
@@ -34826,7 +34826,7 @@ MonoBehaviour:
   y: 0
   decade: 0
   startYear: 2000
-  timeSpeed: 2
+  timeSpeed: 1
 --- !u!114 &2144944420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34842,10 +34842,13 @@ MonoBehaviour:
   gameManager: {fileID: 2144944418}
   timeManager: {fileID: 2144944419}
   tower: {fileID: 1290455540}
+  money: {fileID: 1290455541}
   uiWorkers: {fileID: 490975245}
   progress: 0
-  angriness: 0.015
+  angriness: 0.03
   densityModifier: 0
+  moneyModifier: 0
+  angerProgress: 0
 --- !u!1001 &2147119298
 PrefabInstance:
   m_ObjectHideFlags: 0
